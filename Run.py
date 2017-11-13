@@ -13,19 +13,19 @@ playerone.scale_by(1.75)
 background = gamebox.from_color(500, 600, "green", 700, 50)
 
 def tick(keys):
-    global playeroneimage, playerone
+    global playeroneimage, playerone, yspeed
     camera.clear("black")
+    yspeed = playerone.yspeed
+    playerone = gamebox.from_image(playerone.x, playerone.y, playeroneimage)
+    playerone.yspeed = yspeed
 
     if pygame.K_UP in keys:
         playerone.yspeed = -10
 
     if pygame.K_DOWN in keys and playerone.touches(background):
-        playerone = gamebox.from_image(playerone.x, background.y-30, 'Goku-crouch.png')
-        playerone.scale_by(1.75)
+        playeroneimage = 'Goku-crouch.png'
     elif pygame.K_DOWN not in keys and playerone.touches(background):
-        playerone = gamebox.from_image(playerone.x, playerone.y, 'Goku-1.png')
-        playerone.scale_by(1.75)
-
+        playeroneimage = 'Goku-1.png'
     if pygame.K_RIGHT in keys:
         playerone.x += 4
 
@@ -36,6 +36,7 @@ def tick(keys):
     playerone.y = playerone.y + playerone.yspeed
     if playerone.touches(background):
         playerone.move_to_stop_overlapping(background)
+
     camera.draw(background)
     camera.draw(playerone)
     camera.display()

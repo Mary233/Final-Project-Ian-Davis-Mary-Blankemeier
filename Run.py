@@ -11,8 +11,16 @@ playeroneimage = 'Goku-1.png'
 playerone = gamebox.from_image(300, 400, playeroneimage)
 playerone.scale_by(1.75)
 background = gamebox.from_color(500, 600, "green", 700, 50)
+ticks = 0
+music = gamebox.load_sound("https://upload.wikimedia.org/wikipedia/commons/3/3c/Beat_electronic.ogg")
 
 def tick(keys):
+    musicplay=msuic.play(-1)
+    ticks +=1
+    scoredisplay = gamebox.from_text(0, 0, "SCORE: " + str(ticks // 30), "Arial", 14, "red", italic=True)
+    scoredisplay.top = camera.top
+    scoredisplay.right = camera.right
+    camera.draw(scoredisplay)
     global playeroneimage, playerone, yspeed
     camera.clear("black")
     yspeed = playerone.yspeed
